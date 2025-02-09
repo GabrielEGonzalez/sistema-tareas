@@ -17,6 +17,8 @@
         header {
             padding: 1rem;
             text-align: center;
+            color: #33FF22;
+            font-weight: bold;
         }
 
         .tabla {
@@ -42,7 +44,6 @@
         /* Estilo del modal (ventana emergente) */
         .con-modal {
             display: none;
-            /* Oculto por defecto */
             position: fixed;
             top: 50%;
             left: 50%;
@@ -56,17 +57,15 @@
             animation: fadeIn 0.3s ease-in-out;
         }
 
-
-
         /* Estilo del botón de cerrar */
         #cerrar {
             background: red;
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 5px 15px;
             font-size: 16px;
             cursor: pointer;
-            border-radius: 50%;
+            border-radius: 50px;
             position: absolute;
             top: 8px;
             right: 10px;
@@ -126,44 +125,6 @@
             align-content: end;
             justify-content: end;
         }
-
-        .buscador {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            background-color: #fff;
-            border-radius: 20px;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-            width: 250px;
-            height: 40px;
-            padding: 0 10px;
-            border: 1px solid #ddd;
-        }
-
-        .buscador .icono {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 20px;
-            height: 20px;
-            margin-right: 8px;
-            /* Espacio entre el ícono y el input */
-        }
-
-        .buscador .inputContainer {
-            flex-grow: 1;
-            /* Hace que el input ocupe el espacio restante */
-        }
-
-        .buscador input[type="search"] {
-            border: none;
-            outline: none;
-            background: transparent;
-            width: 100%;
-            font-size: 14px;
-            color: #666;
-            height: 100%;
-        }
     </style>
     <title>inicio</title>
 </head>
@@ -177,20 +138,6 @@
 
     <main>
         <div class="con_acciones">
-            <div class="contendorBus">
-                <div class="buscador">
-                    <div class="icono">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-search" viewBox="0 0 16 16">
-                            <path
-                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                        </svg>
-                    </div>
-                    <div class="inputContainer">
-                        <input type="search" name="buscador" id="buscador" placeholder="Buscar tarea...">
-                    </div>
-                </div>
-            </div>
             <div>
                 <button type="button" id="agregar"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                         fill="white" class="bi bi-plus-circle" viewBox="0 0 16 16">
@@ -222,7 +169,7 @@
                 </div>
 
                 <div class="con-x con-etiqueta">
-                    <label for="estado">estado:</label>
+                    <label for="estados">estado:</label>
                     <select name="estados" id="estados">
                         <option value="Pendiente">Pendiente</option>
 
@@ -239,9 +186,9 @@
 
 
         <div class="tabla">
-            <table class="table table-dark table-hover">
+            <table class="table  table-striped-columns table-hover">
                 <thead>
-                    <tr>
+                    <tr class="table-dark">
                         <th scope="col">Nombre tarea</th>
                         <th scope="col">Descripcion</th>
                         <th scope="col">Fecha limite</th>
@@ -251,15 +198,21 @@
                 </thead>
 
                 <tbody>
-                    <?php if (isset($datos)): ?>
-                        <?php foreach ($datos as $dato): ?>
-                            <th></th>
-                        <?php endforeach ?>
+                    <?php if (!empty($tareas)): ?>
+                        <?php foreach ($tareas as $dato): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($dato['tarea']); ?></td>
+                                <td><?php echo htmlspecialchars($dato['descripcion']); ?></td>
+                                <td><?php echo htmlspecialchars($dato['flimite']); ?></td>
+                                <td><?php echo htmlspecialchars($dato['estados']); ?></td>
+                                <td><button id="modal" type="button" class="btn btn-success">Editar</button></td>
+                            </tr>
+                        <?php endforeach; ?>
                     <?php else: ?>
-                        <tr class="table-success" style="text-aling:center;">
-                            <th colspan="5">ninguna tarea registrada</th>
+                        <tr class="table-success" style="text-align:center;">
+                            <td colspan="5">Ninguna tarea registrada</td>
                         </tr>
-                    <?php endif ?>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>

@@ -17,7 +17,7 @@
         header {
             padding: 1rem;
             text-align: center;
-            color: #33FF22;
+            color:rgb(0, 0, 0);
             font-weight: bold;
         }
 
